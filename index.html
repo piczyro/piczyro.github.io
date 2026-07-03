@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chappyn.pl - Oficjalna Strona Serwera</title>
+    <style>
+        :root {
+            --bg-color: #121214;
+            --card-bg: #1a1a1e;
+            --accent-color: #5865F2; 
+            --curseforge-color: #F16436; 
+            --text-color: #f5f5f7;
+            --text-muted: #a0a0a5;
+            --online-color: #2ecc71;
+            --offline-color: #e74c3c;
+            --admin-color: #2ecc71; /* Zmiana na zielony kolor dla admina */
+        }
+
+        /* Kursor zioła z Cursors-4U zaaplikowany globalnie */
+        * {
+            cursor: url('https://cdn.cursors-4u.net/previews/weed-marijuana-6fcfb5e6-32.webp') 32 32, auto !important;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden; 
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(88,101,242,0.1) 0%, rgba(18,18,20,0) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .server-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 0; 
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7); 
+            border: 4px solid #000000; 
+            outline: 2px solid rgba(255, 255, 255, 0.1); 
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: var(--text-color);
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 90%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .full-width {
+                grid-column: span 2;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card.curse-card h2 {
+            border-bottom: 2px solid var(--curseforge-color);
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .status-online { background-color: rgba(46, 204, 113, 0.2); color: var(--online-color); }
+        .status-offline { background-color: rgba(231, 76, 60, 0.2); color: var(--offline-color); }
+        
+        /* Zielone podświetlenie i tekst dla statusu zjarany */
+        .status-high { background-color: rgba(46, 204, 113, 0.2); color: var(--admin-color); }
+
+        .admin-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .admin-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-photo {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #000;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .ip-box {
+            background-color: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            border: 1px dashed rgba(88,101,242,0.3);
+            margin-top: auto;
+        }
+
+        .ip-box:hover {
+            background-color: rgba(88,101,242,0.05);
+        }
+
+        .engine-badge {
+            background-color: rgba(241, 100, 54, 0.1);
+            color: var(--curseforge-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 1px solid rgba(241, 100, 54, 0.2);
+            text-decoration: underline;
+        }
+
+        .btn-curseforge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--curseforge-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(241, 100, 54, 0.3);
+        }
+
+        .btn-curseforge:hover {
+            background-color: #e05326;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="Logo chappyn.pl" class="server-logo">
+        <h1>chappyn.pl</h1>
+        <p>Witaj na oficjalnej stronie naszego serwera!</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- KARTA 1: STATUS SERWERA NA ŻYWO -->
+        <div class="card">
+            <h2>Status Serwera</h2>
+            
+            <div class="status-row">
+                <span>Stan serwera:</span>
+                <span id="server-status" class="status-badge status-offline">Ładowanie...</span>
+            </div>
+            
+            <div class="status-row">
+                <span>Gracze online:</span>
+                <span id="player-count">- / -</span>
+            </div>
+
+            <div class="status-row">
+                <span>Wersja Minecraft:</span>
+                <span id="server-version" style="color: var(--text-color); font-weight: bold;">-</span>
+            </div>
+
+            <div class="status-row" style="margin-bottom: 25px;">
+                <span>Wymagany silnik:</span>
+                <span class="engine-badge">NeoForge 21.1.233</span>
+            </div>
+
+            <p style="margin-bottom: 5px;">Kliknij adres IP, aby skopiować:</p>
+            <div class="ip-box" id="ip-address" onclick="copyIP()">chappyn.pl</div>
+        </div>
+
+        <!-- KARTA 2: PACZKA MODÓW + ZIELONY STAN ADMINA OBOK -->
+        <div class="card curse-card">
+            <h2>Paczka Modów</h2>
+            <p>Aby zagrać na serwerze, zainstaluj nasz oficjalny modpack bezpośrednio przez aplikację CurseForge na silniku <strong>NeoForge 21.1.233</strong>.</p>
+            
+            <a href="https://www.curseforge.com/minecraft/modpacks/chappyn" target="_blank" class="btn-curseforge">
+                🚀 Pobierz Modpack na CurseForge
+            </a>
+
+            <!-- STAN ADMINA Z ZIELONĄ PLAKIETKĄ -->
+            <div class="admin-section">
+                <span style="font-size: 1.05rem;">Stan admina:</span>
+                <div class="admin-box">
+                    <img src="admin.png" alt="Stan admina" class="admin-photo" width="300" height="300">
+                    <span class="status-badge status-high">zjarany</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- KARTA 3: PORADNIK WIDEO -->
+        <div class="card full-width">
+            <h2>Jak zainstalować mody? – Poradnik Wideo</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Krótki poradnik krok po kroku, który wyjaśnia jak poprawnie przygotować stację i zainstalować wersję NeoForge 21.1.233 do gry na chappyn.pl.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 chappyn.pl. Wszelkie prawa zastrzeżone.
+    </footer>
+
+    <script>
+        const SERVER_IP = 'chappyn.pl'; 
+
+        async function fetchServerStatus() {
+            try {
+                const response = await fetch(`https://mcapi.us/server/status?ip=${SERVER_IP}`);
+                const data = await response.json();
+
+                const statusBadge = document.getElementById('server-status');
+                const playerCount = document.getElementById('player-count');
+                const serverVersion = document.getElementById('server-version');
+
+                if (data.status === "success" && data.online) {
+                    statusBadge.textContent = "Online";
+                    statusBadge.className = "status-badge status-online";
+                    playerCount.textContent = `${data.players.now} / ${data.players.max}`;
+                    serverVersion.textContent = data.server.name || "Wykryto (NeoForge)";
+                } else {
+                    statusBadge.textContent = "Offline";
+                    statusBadge.className = "status-badge status-offline";
+                    playerCount.textContent = "0 / 0";
+                    serverVersion.textContent = "-";
+                }
+            } catch (error) {
+                console.error("Błąd pobierania statusu:", error);
+                document.getElementById('server-status').textContent = "Błąd połączenia";
+            }
+        }
+
+        function copyIP() {
+            const ipText = document.getElementById('ip-address').innerText;
+            navigator.clipboard.writeText(ipText).then(() => {
+                alert("Skopiowano adres IP serwera do schowka: " + ipText);
+            });
+        }
+
+        fetchServerStatus();
+        setInterval(fetchServerStatus, 60000);
+    </script>
+</body>
+</html>
